@@ -1,0 +1,66 @@
+openapi: 3.0.3
+info:
+  title: Inventory & Billing API
+  version: 1.0.0
+  description: REST API for products, stock movements, customers, invoices and dashboard KPIs.
+servers:
+  - url: http://localhost:3000
+paths:
+  /health:
+    get:
+      summary: Health check
+      responses:
+        '200':
+          description: Service is healthy
+  /api/products:
+    get:
+      summary: List products
+      responses:
+        '200':
+          description: Product list
+    post:
+      summary: Create product
+      responses:
+        '201':
+          description: Product created
+        '409':
+          description: SKU already exists
+  /api/products/low-stock:
+    get:
+      summary: List products at or below their low-stock threshold
+      responses:
+        '200':
+          description: Low-stock products
+  /api/stock-movements:
+    post:
+      summary: Register an IN, OUT or ADJUSTMENT movement
+      responses:
+        '201':
+          description: Movement created
+        '409':
+          description: Insufficient stock
+  /api/customers:
+    post:
+      summary: Create customer
+      responses:
+        '201':
+          description: Customer created
+  /api/invoices:
+    get:
+      summary: List invoices
+      responses:
+        '200':
+          description: Invoice list
+    post:
+      summary: Issue invoice and reduce stock
+      responses:
+        '201':
+          description: Invoice issued
+        '409':
+          description: Insufficient stock
+  /api/dashboard:
+    get:
+      summary: Return business KPIs
+      responses:
+        '200':
+          description: Dashboard metrics
